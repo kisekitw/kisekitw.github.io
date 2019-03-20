@@ -9,8 +9,7 @@ tag:
 - sample
 - test
 - jekyll
-comments: false
-project: false
+comments: true
 ---
 
 ## HTML Elements
