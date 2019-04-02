@@ -24,14 +24,11 @@ coredns呈現**CrashLoopBackOff**狀態。
 ### 解決方法
 
 1. 修改CoreDNS configmap
-
 ```
 kubectl -n kube-system edit configmap coredns 
 ```
 2. 移除或註解**loop**
-
 3. 移除CoreDNS Pods
-
 ```
 kubectl -n kube-system delete pod -l k8s-app=kube-dns 
 ```
