@@ -6,7 +6,7 @@ excerpt: "上傳映像檔時出現denied: requested access to the resource is de
 tag:
 - Docker 
 - Container 
-comments: true
+comments: false
 ---
 
 # 執行Docker push指令出現**denied: requested access to the resource is denied**錯誤 
