@@ -1,7 +1,7 @@
 # Site
 title:              XAVIER
 bio:                '技術雜記'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
+description:        "簡單紀錄工作上解決的難題，分享用到的技術等"
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/logo.png'

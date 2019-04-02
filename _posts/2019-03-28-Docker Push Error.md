@@ -11,7 +11,7 @@ comments: true
 
 # 執行Docker push指令出現**denied: requested access to the resource is denied**錯誤 
 
-![alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/docker_push_error.png?raw=true "Error message")
+![alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080328/docker_push_error.png?raw=true "Error message")
 
 上傳映像檔時必須先執行登入指令： 
 ```
