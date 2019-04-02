@@ -5,7 +5,7 @@ date:   2019-03-28
 excerpt: "介紹HTTP常用的Verbs"
 tag:
 - HTTP 
-comments: true
+comments: false
 ---
 
 Web應用程式透過用戶端瀏覽器存取Web伺服器執行相關處理，此時用戶端與Web伺服器間的傳輸就採用HTTP通訊協定。  
