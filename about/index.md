@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About the Theme
+title: About Me
 tags: [about]
 date: 2016-03-21
 comments: false
