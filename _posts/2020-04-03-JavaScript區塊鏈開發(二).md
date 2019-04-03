@@ -9,7 +9,10 @@ tag:
 comments: false
 ---
 
-[link]: https://kisekitw.github.io//JavaScript%E5%8D%80%E5%A1%8A%E9%8F%88%E9%96%8B%E7%99%BC(%E4%B8%80)/ "上一篇"說明了何謂區塊鏈與其運作方式，接著要建立專案開始打造區塊鏈及其功能。
+[link]: https://kisekitw.github.io//JavaScript%E5%8D%80%E5%A1%8A%E9%8F%88%E9%96%8B%E7%99%BC(%E4%B8%80)/ "上一篇"說明了何謂區塊鏈與其運作方式，接著要建立專案開始打造區塊鏈及其功能，包含:
+
+1. 利用建構子(constructor)建立區塊鏈資料結構
+2. 利用prototype實做區塊鏈各種方法，例如建立新區塊、雜湊資料、工作量證明(Proof of Work)等
 
 ### 專案環境設定
 
@@ -40,6 +43,8 @@ touch blackchain.js test.js
 最後專案資料夾結構應該如下圖:
 
 ![alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080403/projectstructure.png?raw=true "project file structure")
+
+
 
 
 
