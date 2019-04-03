@@ -49,10 +49,10 @@ touch blackchain.js test.js
 
 ### 了解JavaScript constructor和prototype
 
-1. Constuctor
+1. Constuctor 
 開頭說道會利用construcor建立區塊鏈的資料結構，簡單來說consturctor就是一個類別(Class)的方法(function)，讓你可以很簡單且快速的建立多個特定類別的實體(Instance)，這些實體都擁有相同的屬性(Property)及功能(Function)。
 
-2. Prototype
+2. Prototype 
 
 
 
