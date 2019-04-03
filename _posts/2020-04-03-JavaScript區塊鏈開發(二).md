@@ -47,6 +47,9 @@ touch blackchain.js test.js
 ![alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080403/projectstructure.png?raw=true "project file structure")
 
 
+### 了解JavaScript**constructor**和**prototype**
+
+
 
 
 
