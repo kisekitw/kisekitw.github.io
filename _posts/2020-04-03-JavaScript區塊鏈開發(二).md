@@ -9,8 +9,7 @@ tag:
 comments: false
 ---
 
-[上一篇][]說明了何謂區塊鏈與其運作方式，接著要建立專案開始打造區塊鏈及其功能
-[上一篇]:https://kisekitw.github.io//JavaScript%E5%8D%80%E5%A1%8A%E9%8F%88%E9%96%8B%E7%99%BC(%E4%B8%80)/
+[link]: https://kisekitw.github.io//JavaScript%E5%8D%80%E5%A1%8A%E9%8F%88%E9%96%8B%E7%99%BC(%E4%B8%80)/ "上一篇"說明了何謂區塊鏈與其運作方式，接著要建立專案開始打造區塊鏈及其功能。
 
 ### 專案環境設定
 
