@@ -40,5 +40,4 @@ MongoDB是一種文件式的NoSQL資料庫, 非常適合處理來自各設備的
 
 資料的Sequence Diagram如下︰ 
 
-![Alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080314/DataflowFromSensorToDB.svg?raw=true)
-<img src="https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080314/DataflowFromSensorToDB.svg?raw=true">
+![Alt text](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080314/DataflowFromSensorToDB.png?raw=true "Dataflow From Sensor to DB")
