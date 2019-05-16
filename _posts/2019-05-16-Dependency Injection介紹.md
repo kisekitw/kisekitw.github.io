@@ -10,6 +10,8 @@ tag:
 comments: false
 ---
 
-[![Dependency Injection](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Dependency Injection](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080516/DI_first.png?raw=true)](https://www.slideshare.net/kisekitw/dependency-injection-intro)
+
+
 
 
