@@ -32,7 +32,7 @@ Center for Internet
 https://www.cisecurity.org/
 ```
 
-了解這些項目後，要如何知道自己的環境有哪些組態不符合最佳實務呢？最好還要能自動的檢查CIS這些面向！ 
+了解這些項目後，要如何知道自己的環境有哪些組態不符合最佳實務呢？最好還要能自動的檢查CIS這些面向！  
 答案是**Docker Bench Security**！ 
 
 ```
