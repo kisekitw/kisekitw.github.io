@@ -62,6 +62,7 @@ Docker Notary確保所使用的映像檔與當初內容提供者是相同的。
 * Securing Runtime Environment 
 1. Application Control Whitelisting
 以白名單控制可在主機或容器內可運行的應用程式。
-2. Vendors Supports
-
+2. Security Vendors Supports 
+請資訊安全廠商將其產品開放APIs，讓開發者可整合至CI/CD工具鍊。
 3. VMs/Physical HW for Strong Isolation
+透過將各容器跑在各自VM上或實體機器上，打造強隔離。 
