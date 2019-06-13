@@ -121,7 +121,7 @@ kubeadm version
    free -m   
 
    ```   
-   
+
 4. 初始化Master
 5. 設定kubectl組態
 6. 開啟Shell Autocompletion(OPT)
