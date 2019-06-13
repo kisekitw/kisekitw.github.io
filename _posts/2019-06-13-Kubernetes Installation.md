@@ -89,27 +89,27 @@ Docker的版本至少要1.9以上。
 ## 安裝Kubernetes    
 1. 安裝kubelet與kubeadm    
 
-```
-sudo su   
+    ```
+    sudo su   
 
-apt-get update && apt-get install -y apt-transport-https   
+    apt-get update && apt-get install -y apt-transport-https   
 
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -        
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -        
 
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF    
+    cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+    deb http://apt.kubernetes.io/ kubernetes-xenial main
+    EOF    
 
-apt-get update && apt-get install -y kubeadm     
+    apt-get update && apt-get install -y kubeadm     
 
-```   
+    ```   
 
 2. 確認kubeadm版本
 確認版本為1.8以上。    
 
-```
-kubeadm version
-```   
+    ```
+    kubeadm version
+    ```   
 
 3. 關閉swap   
    
@@ -122,11 +122,63 @@ kubeadm version
 
    ```   
 
-4. 初始化Master
+4. 初始化Master   
+   **pod-network-cidr**是POD使用的虛擬網路，會從該區間分配IP給POD。   
+   ```   
+   kubeadm init --pod-network-cidr=10.244.0.0/16   
+   ```     
+   後面參數是flannel的預設參數，可參考︰   
+   ```
+   https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml
+   ```  
+
+   此步驟成功後就會取得讓Worker加入的指令(內含Token)，於**步驟8**可執行此指令:   
+   ```   
+   kubeadm join 172.31.8.158:6443 --token 3galn6.5fmev255mxr0yrr1 \
+    --discovery-token-ca-cert-hash sha256:a8199ad9df17dfff452075ed75e7267d484a3f2277732e7a97273b3904ef6b09
+   ```   
+
 5. 設定kubectl組態
-6. 開啟Shell Autocompletion(OPT)
-7. 開啟Master也可佈署POD(OPT)
+   ```   
+   mkdir -p $HOME/.kube/   
+   sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config   
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   ```   
+
+6. 開啟Shell Autocompletion(OPT)   
+   ```   
+   apt-get install -y bash-completion   
+   echo "source /etc/bash_completion" >> ~/.bashrc   
+   echo "source <(kubectl completion bash)" >> ~/.bashrc   
+   source <(kubectl completion bash)
+   ```   
+7. 開啟Master也可佈署POD(OPT)   
+   ```   
+   kubectl taint nodes --all node-role.kubernetes.io/master-   
+   ```   
 8. 安裝POD網路
-9.  將Worker加入叢集
+   以安裝**Flannel**為例，有興趣也可安裝**weave**。   
+   ```   
+   kubectl apply --namespace kube-system -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+   ```   
+9.  將Worker加入叢集   
+    Worker要執行**步驟1、2、3**後再執行下面指令加入Master。   
+    ```  
+    kubeadm join --token <token> <master-ip>:<master-port>
+    ```  
+    上面詳細資訊參考**步驟4** 。
+
 10. 確認叢集資訊
-11. 確認節點資訊
+    ```   
+    kubectl cluster-info
+    ```   
+    指令輸出︰　　
+    ![Cluster-info](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/cluster-info.png?raw=true)
+
+11. 確認節點資訊   
+    ```   
+    kubectl get nodes
+    ```  
+    指令輸出︰　　
+    ![Get Nodes Result](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/GetNodes.png?raw=true)
+
