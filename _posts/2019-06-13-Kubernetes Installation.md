@@ -44,4 +44,5 @@ Worker|k8s-node-2|ubuntu 18.04
 
    ![EC2 Security Group](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/securityGroup.png?raw=true)
 
-5. 
+5. Lanuch後會導頁至EC2 Dashboard
+    ![EC2 Instance Dashboard](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/EC2Dashboard.png?raw=true)
