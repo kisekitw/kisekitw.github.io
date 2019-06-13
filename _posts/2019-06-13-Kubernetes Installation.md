@@ -87,13 +87,14 @@ Docker的版本至少要1.9以上。
 接下來開始安裝kubernetes環境。
 
 ## 安裝Kubernetes    
-1. 安裝kubelet與kubeadm
+1. 安裝kubelet與kubeadm    
+
 ```
 sudo su   
 
 apt-get update && apt-get install -y apt-transport-https   
 
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -     
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -        
 
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
@@ -102,7 +103,7 @@ EOF
 apt-get update && apt-get install -y kubeadm     
 
 ```
-2. 確認kubeadm版本
+1. 確認kubeadm版本
 確認版本為1.8以上。
 ```
 kubeadm version
@@ -114,7 +115,7 @@ kubeadm version
    sed -e '/swap/ s/^#*/#/' -i /etc/fstab   
 
    free -m   
-   
+
    ```
 4. 初始化Master
 5. 設定kubectl組態
