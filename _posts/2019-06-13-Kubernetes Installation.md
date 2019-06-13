@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kubernetes Installation"
+title:  "Kubernetes Installation on AWS EC2"
 date:   2019-06-13
 excerpt: "如何在AWS EC2安裝並設置Kubernetes Master & Worker Nodes"
 tag:
