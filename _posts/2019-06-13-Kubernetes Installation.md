@@ -82,5 +82,28 @@ Docker的版本至少要1.9以上。
    ```
    輸出結果︰     
        ![Master Docker Service Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/MasterDockerServiceStatus.png?raw=true)
+8. 另外兩個Node也須依照步驟安裝Docker
 
-   
+接下來開始安裝kubernetes環境。
+
+## 安裝Kubernetes    
+1. 安裝kubelet與kubeadm
+```
+sudo su   
+apt-get update && apt-get install -y apt-transport-https   
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -     
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF    
+apt-get update && apt-get install -y kubeadm     
+```
+2. 確認kubeadm版本
+3. 關閉swap
+4. 初始化Master
+5. 設定kubectl組態
+6. 開啟Shell Autocompletion(OPT)
+7. 開啟Master也可佈署POD(OPT)
+8. 安裝POD網路
+9.  將Worker加入叢集
+10. 確認叢集資訊
+11. 確認節點資訊
