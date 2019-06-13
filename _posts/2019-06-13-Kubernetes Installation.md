@@ -90,12 +90,17 @@ Docker的版本至少要1.9以上。
 1. 安裝kubelet與kubeadm
 ```
 sudo su   
+
 apt-get update && apt-get install -y apt-transport-https   
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -     
+
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF    
+
 apt-get update && apt-get install -y kubeadm     
+
 ```
 2. 確認kubeadm版本
 3. 關閉swap
