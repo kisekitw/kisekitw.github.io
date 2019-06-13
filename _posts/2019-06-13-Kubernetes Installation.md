@@ -103,7 +103,19 @@ apt-get update && apt-get install -y kubeadm
 
 ```
 2. 確認kubeadm版本
+確認版本為1.8以上。
+```
+kubeadm version
+```
 3. 關閉swap
+   ```
+   swapoff -a   
+
+   sed -e '/swap/ s/^#*/#/' -i /etc/fstab   
+
+   free -m   
+   
+   ```
 4. 初始化Master
 5. 設定kubectl組態
 6. 開啟Shell Autocompletion(OPT)
