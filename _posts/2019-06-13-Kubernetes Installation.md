@@ -46,3 +46,41 @@ Worker|k8s-node-2|ubuntu 18.04
 
 5. Lanuch後會導頁至EC2 Dashboard
     ![EC2 Instance Dashboard](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/EC2Dashboard.png?raw=true)
+
+經過上面步驟，就會建立好一個Master與兩個Worker，接著在Master安裝K8S運行環境。
+
+## 安裝Docker CE
+Docker的版本至少要1.9以上。    
+
+1. 更新目前套件清單    
+   ```
+   sudo apt update
+   ```
+2. 安裝一些必須的套件包，可讓apt透過HTTPS使用套件   
+   ```
+   sudo apt install apt-transport-https ca-certificates curl software-properties-common
+   ```
+3. 加入Docker官方儲存庫的GPG key    
+   ```
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   ```
+4. 新增Docker儲存庫到APT   
+   ```
+   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+   ```
+5. 再次更新套件庫以加入Docker套件    
+   ```
+   sudo apt update
+   ```
+6. 安裝Docker    
+   ```
+   sudo apt install docker-ce
+   ```
+7. 安裝結束後會啟動daemon，可輸入下面指令確認服務是否正常運行    
+   ```
+   sudo systemctl status docker
+   ```
+   輸出結果︰     
+       ![Master Docker Service Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/MasterDockerServiceStatus.png?raw=true)
+
+   
