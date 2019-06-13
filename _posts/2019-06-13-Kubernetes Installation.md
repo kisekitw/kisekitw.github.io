@@ -37,10 +37,10 @@ Worker|k8s-node-2|ubuntu 18.04
    預設會開啟SSH的22，若為Web Server則可能需開啟443(https)、80(http)。
    若想讓執行個體可互相Ping，則須開Type為**Custom ICMP**、Protocol為**Echo Request**的規則。
    
-   ### 重要說三次
-   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**
-   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**
-   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**
+   ### 重要說三次   
+   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**   
+   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**   
+   **Master要讓Worker可加入叢集納管，必須開啟6443！！！**   
 
    ![EC2 Security Group](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/securityGroup.png?raw=true)
 
