@@ -82,7 +82,7 @@ Docker的版本至少要1.9以上。
    ```
    輸出結果︰     
        ![Master Docker Service Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/MasterDockerServiceStatus.png?raw=true)
-8. 另外兩個Node也須依照步驟安裝Docker
+8. 另外兩個Worker也須依照步驟安裝Docker
 
 接下來開始安裝kubernetes環境。
 
