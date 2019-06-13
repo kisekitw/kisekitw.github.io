@@ -156,7 +156,7 @@ Docker的版本至少要1.9以上。
    ```   
    kubectl taint nodes --all node-role.kubernetes.io/master-   
    ```   
-8. 安裝POD網路
+8. 安裝POD網路   
    以安裝**Flannel**為例，有興趣也可安裝**weave**。   
    ```   
    kubectl apply --namespace kube-system -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
