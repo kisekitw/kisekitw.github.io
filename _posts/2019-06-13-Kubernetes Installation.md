@@ -21,5 +21,9 @@ Worker|k8s-node-2|ubuntu 18.04
 
 ## 建立EC2執行個體
 1. 進到**EC2 Dashboard**從畫面中間點擊**Launch Instance**
-   ![EC2 Dashboard Launch Instance](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080612/DashboardLaunchInstance.png?raw=true)
-2. 
+   ![EC2 Dashboard Launch Instance](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/DashboardLaunchInstance.png?raw=true)
+2. 選擇AMI(Amazon Machine Image)
+   作業系統選擇**Ubuntu Server 18.04 LTS(HVM)**
+   
+   ![EC2 Amazon Machine Image](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080613/chooseAMI.png?raw=true)
+3. 
