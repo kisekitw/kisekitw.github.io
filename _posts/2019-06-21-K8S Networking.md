@@ -27,7 +27,7 @@ Cluster IP有下面特性:
 2. 只能結合Service Port組合實際的通訊連接埠，單獨的Cluster IP不具備TCP/IP通訊基礎。
 3. 存在於K8S叢集封閉空間中，**叢集外要存取則須做額外設定**。   
 
-![CLUSTER] IP Network](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/ClusterIP.png?raw=true)
+![CLUSTER IP Network](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/ClusterIP.png?raw=true)
 
 
 ## 開放Cluster IP給外界存取  
