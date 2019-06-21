@@ -24,7 +24,12 @@ $ kubectl get deployment -n kube-system | grep dashboard
 ![Dashboard Deployment Check](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/dashboardStatusCheck.png?raw=true)    
 
 ## 修改Service為NodePort類型
-接著要將Dashboard服務開放給叢集外部用戶存取，因此須修改type為**NodePort**並給予一個通訊埠號︰
+接著要將Dashboard服務開放給叢集外部用戶存取，因此須修改type為**NodePort**並給予一個通訊埠號︰   
+
+```shell
+$ kubectl edit svc kubernetes-dashboard --namespace=kube-system
+```
+
 ``` yaml
 apiVersion: v1
 kind: Service
@@ -54,7 +59,83 @@ spec:
   type: NodePort      <------ modify
 status:
   loadBalancer: {}
+```   
+修改好後再重新apply一次就會套用新的組態。   
 
+## 建立Service Account(RBAC)  
+首先建立一個yaml檔案，命名為k8s-dashboard-adminuser.yaml(可隨意命名)並編輯該檔案:
 ```
+$ sudo touch k8s-dashboard-adminuser.yaml   
+$ sudo nano k8s-dashboard-adminuser.yaml
+```   
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+```
+除存檔案後就可執行下面指令apply該組態：   
+```
+$ kubectl apply -f k8s-dashboard-adminuser.yml
+```
+
+## 建立ClusterRoleBinding(RBAC)   
+接著建立ClusterRoleBinding，將上面建立的角色繫結至叢集。   
+建立一yml檔案，命名為clusterRoleBinding.yaml(可隨意命名)並編輯該檔案：
+```
+$ sudo touch clusterRoleBinding.yaml   
+$ sudo nano clusterRoleBinding.yaml   
+```
+```yaml   
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kube-system
+```   
+除存檔案後就可執行下面指令create該組態：   
+```
+$ kubectl create -f clusterRoleBinding.yaml
+```  
+最後可執行下面指令檢查是否有成功繫結:
+```
+$ kubectl describe clusterrole/cluster-admin
+```   
+結果應如下圖：
+![Cluster Role Binding](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/clusterRoleBinding.png?raw=true)   
+
+## 存取Dashboard   
+要存取Dashboard的Service要先取得NodePort:   
+```
+$ kubectl describe svc kubernetes-dashboard --namespace=kube-system
+```
+```yaml
+Name:                     kubernetes-dashboard
+Namespace:                kube-system
+Labels:                   k8s-app=kubernetes-dashboard
+Annotations:              kubectl.kubernetes.io/last-applied-configuration:
+                            {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"k8s-app":"kubernetes-dashboard"},"name":"kubernetes-dashboard"...
+Selector:                 k8s-app=kubernetes-dashboard
+Type:                     NodePort
+IP:                       10.108.78.240
+Port:                     <unset>  442/TCP
+TargetPort:               8443/TCP
+NodePort:                 <unset>  32149/TCP
+Endpoints:                10.244.2.24:8443
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+```   
+接著用Node IP + NodePort就可以存取Dashboard：   
+![Dashboard UI](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/DashboardUI.png?raw=true)    
+
 
 
