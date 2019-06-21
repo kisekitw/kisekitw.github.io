@@ -33,6 +33,12 @@ Cluster IP有下面特性:
 ## 開放Cluster IP給外界存取  
 要開放Service的Cluster IP給外界存取需要擴充Service的定義︰將type＝NodePort，並給予一個通訊埠號，例如nodePort: 31002。它為需要對外存取的Service在該Node開啟一個對應的TCP通訊埠，接著只要透過Node IP + NodePort通訊埠號就可存取該服務。但這只解了Service部份的問題，Service通常伴隨負載平衡的需求，若叢集執行在公有雲上(例如GCP、AMAZON...)，可以直接將type=LoadBalancer，系統就會自動建立一個對應的Load balancer實例，並會取得一個給用戶端存取的IP位址；若是自己架設的K8S，則須自己準備Load Balancer，例如Nginx、Traefik等。
 
+![NodePort](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/NodePort.png?raw=true)   
+
+透過NodePort的IP以及通訊埠號(80)就可以存取frontend的Service，若type=LoadBalancer則EXTERNAL-IP會被分派一個IP位址。   
+
+
+
 
 
 
