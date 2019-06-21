@@ -17,16 +17,16 @@ comments: false
 ## 燒錄作業系統需要準備下面材料
 1. 映像檔
    可直接從官方網站下載︰   
-```
-https://blog.hypriot.com/downloads/
-```
-也可以透過terminal下載︰   
+    ```
+    https://blog.hypriot.com/downloads/
+    ```
+    也可以透過terminal下載︰   
 
-```
-curl -LO https://github.com/hypriot/flash/releases/download/2.3.0/flash
-chmod +x flash
-sudo mv flash /usr/local/bin/flash
-```   
+    ```
+    curl -LO https://github.com/hypriot/flash/releases/download/2.3.0/flash
+    chmod +x flash
+    sudo mv flash /usr/local/bin/flash
+    ```   
 2. 讀卡機
 3. 燒錄軟體
    推薦使用**flash tool**。
