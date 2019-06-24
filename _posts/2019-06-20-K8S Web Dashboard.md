@@ -24,7 +24,7 @@ $ kubectl get deployment -n kube-system | grep dashboard
 ![Dashboard Deployment Check](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/dashboardStatusCheck.png?raw=true)    
 
 ## 修改Service為NodePort類型
-接著要將Dashboard服務開放給叢集外部用戶存取，因此須修改type為**NodePort**並給予一個通訊埠號︰   
+接著要將Dashboard服務開放給叢集外部用戶存取，因此須修改type為**NodePort**並給予一個通訊埠號(必須在**30000-32767**)︰   
 
 ```shell
 $ kubectl edit svc kubernetes-dashboard --namespace=kube-system
@@ -60,7 +60,7 @@ spec:
 status:
   loadBalancer: {}
 ```   
-修改好後再重新apply一次就會套用新的組態。   
+修改好後會自動套用新的組態。   
 
 ## 建立Service Account(RBAC)  
 首先建立一個yaml檔案，命名為k8s-dashboard-adminuser.yaml(可隨意命名)並編輯該檔案:
@@ -107,7 +107,7 @@ $ kubectl create -f clusterRoleBinding.yaml
 ```  
 最後可執行下面指令檢查是否有成功繫結:
 ```
-$ kubectl describe clusterrole/cluster-admin
+$ kubectl describe ClusterRoleBinding/admin-user
 ```   
 結果應如下圖：
 ![Cluster Role Binding](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/clusterRoleBinding.png?raw=true)   
@@ -135,7 +135,19 @@ External Traffic Policy:  Cluster
 Events:                   <none>
 ```   
 接著用Node IP + NodePort就可以存取Dashboard：   
-![Dashboard UI](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/DashboardUI.png?raw=true)    
+![Dashboard Login UI](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/DashboardUI.png?raw=true)    
+
+Kubernetes儀表板提供兩種登入的方式，由於上面步驟有建立一個Service Account，系統會自動建立一個**secret**資源，因此可以用裡面的token作為與API Server認證使用。   
+可使用下面指令取得token︰   
+```
+$ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+```
+![Cluster Role Binding](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/token.png?raw=true)    
+取得token後就可輸入登入畫面:   
+![Input Token](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/InputToken.png?raw=true)     
+![LoginSuccess](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080621/LoginSuccess.png?raw=true)    
+
+
 
 
 
