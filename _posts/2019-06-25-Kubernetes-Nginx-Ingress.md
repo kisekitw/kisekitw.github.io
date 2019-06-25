@@ -10,8 +10,29 @@ tag:
 - Nginx  
 comments: false
 ---  
-說到Ingress就必須先談Kubernetes中的Service資源物件，是最核心的物件之一，它主要解決Pod動態生成IP的存取問題。由於Pod的生命週期並不是永久的，掛掉後就不會再重新啟動，因此通常會藉由Replication Controller或**ReplicaSet**資源物件確保Pod可維持在Desired的數量。   
+說到Ingress就必須先談Kubernetes中的Service資源物件，是最核心的物件之一，它主要解決Pod動態生成IP的存取問題，透過Service的標籤(Tag)選定一組Pod，Service資源物件就會自動監控/負載Pod，然後只需要對外開放Service IP即可，也就是**NodePort**模式。好了，那問題就在於Service**這個入口位址(IP+Port)**的存取：   
 
-從下面結構可以了解Pod、Service和資源物件間的關係︰   
-![Service Architecture](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080625/ServiceArchi.png?raw=true)   
-Service定義了一個服務的存取入口位址，frontend的Pod透過這個入口位址存取Service背後一組Pod叢集實例，Service與後面的Pod叢集透過Label Selector關聯。   
+![Service Architecture](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080625/ServiceArchi.png?raw=true)  
+
+當有多個Service運行時，系統會對Node設定相對應的通訊埠號對應每個Service的通訊埠號，因此新增、刪除Service時對應的通訊埠號就須變動，這在GCP或AWS這種平台上會需要一直調整防火牆的Rules。  
+
+一個初步的作法是在每個Node上透過反向代理伺服器(例如Nginx)監聽一個對外的通訊埠(例如80)，對叢集內則設定網域規則，當請求進來時就會轉發到對應的ClusterIP，統一了各Node上的監聽埠號，但每次服務實例有變動，還是免不了去更改反向代理伺服器的組態，當Node很多，這種工人智慧的作法太不靠普了，這時就需要**Ingress**的功能。   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+為了將入口位址統一，就  
+
