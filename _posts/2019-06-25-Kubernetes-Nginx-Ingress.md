@@ -14,4 +14,4 @@ comments: false
 
 從下面結構可以了解Pod、Service和資源物件間的關係︰   
 ![Service Architecture](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080625/ServiceArchi.png?raw=true)   
-Service定義了一個服務的存取入口位址，frontend的Pod透過這個入口位址存取背後一組由Pod叢集實例，Service與其後面的Pod叢集透過Label Selector關聯。   
+Service定義了一個服務的存取入口位址，frontend的Pod透過這個入口位址存取Service背後一組Pod叢集實例，Service與後面的Pod叢集透過Label Selector關聯。   
