@@ -25,30 +25,3 @@ comments: false
 透過Ingress資源物件了Nginx的組態設定，原先要一個一個修改Nginx組態，現在則是針對Ingress資源物件修改，而既然是資源物件，就可用yaml創建、更新。疑？那Ingress Controller有什麼用途?Ingress Controller會一直跟K8S API溝通，持續偵測叢集中Ingress的變化，若有變化就依據定義的模板生成一段Nginx組態配置，再更新到Nginx的Pod中。  
 
 ## 實例佈署   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-為了將入口位址統一，就  
-
