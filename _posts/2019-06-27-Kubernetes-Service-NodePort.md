@@ -49,4 +49,6 @@ comments: false
 
 ![Complex Service](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080627/complexservice.png?raw=true)   
 
+Service會自動在各Node上開啟相同的監聽通訊埠號，這時就可以用**叢集中任一**Node的IP+NodePort存取Pod服務。當Pod有新增或刪除等變動時，Service都會自動更新。   
+
 
