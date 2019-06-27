@@ -14,7 +14,7 @@ comments: false
 
 說到Ingress就必須先談Kubernetes中的Service資源物件，是最核心的物件之一，它主要解決Pod動態生成IP的存取問題，透過Service的標籤(Tag)選定一組Pod，Service資源物件就會自動監控/負載Pod，然後只需要對外開放Service IP即可，也就是**NodePort**模式。  
 
-好了，那問題就在於Service**這個入口位址(IP+Port)**的存取：   
+好了，那問題就在於Service**NodePort**的存取：   
 
 ![Service Architecture](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080625/ServiceArchi.png?raw=true)  
 
