@@ -18,4 +18,9 @@ comments: false
 
 ![Access No SSH](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080627/accessnossh.png?raw=true)   
 
-要享有這樣的效果，在Node中就要有一個機制能幫忙做請求(Request)對映(Mapping)。
+要想有這樣的效果，在Node中就要有一個機制能幫忙做請求(Request)對映(Mapping)並轉發，而這就是**Service**的功能。   
+
+![Access By NodePort](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080627/accessbynodeport.png?raw=true)   
+
+從上圖可看出Service的效果，其可在Node上開啟一個監聽的通訊埠號，稱為**NodePort**，外面的用戶就可對**Node IP + NodePort**發出請求，Service監聽到有請求後就負責轉發給其納管(符合selector)的Pods，至於會送往哪個Pod則完全是隨機的(Random)，這樣看起來Service很像是內建的Load Balancer。   
+
