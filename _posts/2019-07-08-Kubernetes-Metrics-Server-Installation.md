@@ -45,6 +45,50 @@ Kubernetes v1.1開始新增了Horizontal Pod Autoscaler(HPA)控制器，該控�
     ![Matrics Server Error](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080708/matrics-server-error.png?raw=true)   
 
     從上面訊息發現是**x509: certificate signed by unknown authority**的問題，透過kubeadm佈署的叢集會出現該錯誤，須修改metrics-server的deployment檔案。 
-5. 
+5. 修改檔案
+    ```
+    kubectl edit deploy -n kube-system metrics-server
+    ```
+    修改前:   
+    ```
+    spec:
+        containers:
+        - image: k8s.gcr.io/metrics-server-amd64:v0.3.3
+          imagePullPolicy: Always
+    ```
+    修改後:    
+    ```
+    spec:
+        containers:
+        - image: k8s.gcr.io/metrics-server-amd64:v0.3.3
+          command:
+          - /metrics-server
+          - --kubelet-insecure-tls
+          imagePullPolicy: Always
+    ```
+    除存修改後系統就會自動重新建立一個metrics-server的Pod。  
+6. 查看Logs 
+    ```
+    $ kubectl logs -n kube-system [matrics-server-pod-name]
+    ``` 
+    結果如下表示成功：
+    ```
+    I0708 08:09:46.917336       1 serving.go:312] Generated self-signed cert (apiserver.local.config/certificates/apiserver.crt, apiserver.local.config/certificates/apiserver.key)
+    I0708 08:09:47.208117       1 secure_serving.go:116] Serving securely on [::]:443  
+
+    ...
+
+    ```
+7. 查看Metrics
+    ```
+    $ kubectl top nodes
+    ```
+    結果如下:
+    ```
+    NAME               CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   
+    ip-172-31-0-138    41m          2%     1119Mi          29%       
+    ip-172-31-40-242   22m          2%     519Mi           58%       
+    ip-172-31-8-158    134m         3%     1667Mi          10%  
+    ```
 
 
