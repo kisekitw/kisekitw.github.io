@@ -91,4 +91,56 @@ Kubernetes v1.1開始新增了Horizontal Pod Autoscaler(HPA)控制器，該控�
     ip-172-31-8-158    134m         3%     1667Mi          10%  
     ```
 
+### 設置Proxy Server  
+有了Metrics Server & Metrics API後，接下來就是要能透過curl、wget、或http客戶端(程式或服務)存取，因此要有一個反向代理伺服器來拋送請求。  
+
+目前要存取API Server官方有提供兩種作法，可參考下面網址：   
+```
+https://k8smeetup.github.io/docs/tasks/access-application-cluster/access-cluster/
+```
+這邊就採用推薦的方式: **以proxy模式運行kubectl**，首先要將其作為系統服務以長時間在背景運行，步驟如下:   
+
+1. 首先在/lib/systemd/system/建立一個空的kubectlproxy.service檔案並將下面內容複製到裡面
+    ```
+    [Unit]
+    Description=kubectl proxy 8088
+    After=network.target
+
+    [Service]
+    User=root
+    ExecStart=/bin/bash -c "/usr/bin/kubectl proxy --address='0.0.0.0' --port=8088 --accept-hosts='^*$'"
+    StartLimitInterval=0
+    RestartSec=10
+    Restart=always
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+2. 確認服務狀態
+    ```
+    systemctl -l status kubectlproxy.service
+    ```
+    如果狀態如下，則表示服務未正常運行：
+    ```
+    kubectl-proxy.service - kubectl proxy 8088
+    Loaded: loaded (/lib/systemd/system/kubectl-proxy.service; disabled; vendor preset: enabled)
+    Active: inactive (dead)
+    ```   
+3. 重新啟動
+    ```
+    systemctl daemon-reload   
+    systemctl reenable kubectlproxy.service   
+    systemctl restart kubectlproxy.service
+    ```   
+### 測試Web API Server  
+開好伺服器後就可以用Postman測試是否可以擷取到叢集相關資訊。  
+Metrics Server會從K8S集群中每個Node上kubelet API收集Metrics，接著透過Metrics API就可取得K8S物件资源的Metrics指標，Metrics API掛載在/apis/metrics.k8s.io/下。   
+
+![Matrics Server API](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080708/MetricsServerWebAPI.png?raw=true)    
+
+從上面可知道目前Metrics API提供的資源物件指標有**Node**和**Pod**，並都提供**get**、**list**的操作，可以進一步查詢**目前**叢集中Pod的狀態：   
+
+![Matrics Server API Pod](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080708/PodStatus.png?raw=true)    
+
+
 
