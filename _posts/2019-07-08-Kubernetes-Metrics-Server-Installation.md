@@ -142,5 +142,7 @@ Metrics Server會從K8S集群中每個Node上kubelet API收集Metrics，接著�
 
 ![Matrics Server API Pod](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080708/PodStatus.png?raw=true)    
 
+### 測試UI實做   
+實做UI介面存取Metrics API： 
 
-
+![K8S Pods Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080708/K8SPodStatus.png?raw=true) 
