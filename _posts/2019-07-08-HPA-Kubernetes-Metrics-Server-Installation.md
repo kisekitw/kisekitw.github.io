@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kubernetes Metrics Server Installation"
+title:  "HPA - Kubernetes Metrics Server Installation"
 date:   2019-07-08
 excerpt: "安裝K8S Metrics Server"
 tag:
