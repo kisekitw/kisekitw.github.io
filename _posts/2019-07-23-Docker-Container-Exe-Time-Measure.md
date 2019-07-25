@@ -28,7 +28,7 @@ comments: false
     $ sudo docker run --name=test kisekitw/largeapp ping -c 10 8.8.8.8
     ```
 4. 計算啟動時間
-    ``` bash
+    ``` 
     START=$(sudo docker inspect --format='{{.Created}}' test)
     STOP=$(sudo docker inspect --format='{{.State.StartedAt}}' test)
     START_TIMESTAMP=$(date --date=$START +%s)
