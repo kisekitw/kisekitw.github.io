@@ -174,11 +174,6 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     ADD openstack-cloud-controller-manager /bin/
     CMD ["/bin/openstack-cloud-controller-manager"]   
     ```     
-         
-    ```   
-    https://github.com/kubernetes/cloud-provider-openstack/blob/master/cluster/images/controller-manager/Dockerfile   
-    ```   
-
 4. 以DaemonSet掛載至Master Node   
     ```yaml
     apiVersion: apps/v1
