@@ -60,16 +60,24 @@ type Interface interface {
 只有**ProviderName()**為必要實作，其他皆為Option。
 
 ###  Cloud Controller Manager 
-The Cloud Controller Manager (CCM) replaces the Kube Controller Manager (KCM), and is daemon that embeds the following cloud-specific control loops:
+
+![K8S CCM Infra](https://d33wubrfki0l68.cloudfront.net/518e18713c865fe67a5f23fc64260806d72b38f5/61d75/images/docs/post-ccm-arch.png?raw=true)    
+
+CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的功能元件:
+
 * Node Controller
 * Route Controller
 * Service Controller
+* Volume Controller
 
+在K8S v1.9中實際運行的為上面前三個，Volume的部分由於抽象化各供應商Volume邏輯過於複雜，目前決定不將其加入CCM。
 
 
 
 ### 參考資料
 
+* Concepts Underlying the Cloud Controller Manager
+https://kubernetes.io/docs/concepts/architecture/cloud-controller/
 * Building a Controller Manager for Your Cloud Platform 
 https://www.youtube.com/watch?v=kO7qJKPgxS0
 * Cloud Provider OpenStack
