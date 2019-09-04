@@ -60,8 +60,11 @@ type Interface interface {
 只有**ProviderName()**為必要實作，其他皆為Option。
 
 ###  Cloud Controller Manager 
+未使用CCM的K8S叢集架構:   
+![K8S CCM Old Infra](https://d33wubrfki0l68.cloudfront.net/e298a92e2454520dddefc3b4df28ad68f9b91c6f/70d52/images/docs/pre-ccm-arch.png?raw=true)    
 
-![K8S CCM Infra](https://d33wubrfki0l68.cloudfront.net/518e18713c865fe67a5f23fc64260806d72b38f5/61d75/images/docs/post-ccm-arch.png?raw=true)    
+使用CCM的K8S叢集架構:   
+![K8S CCM New Infra](https://d33wubrfki0l68.cloudfront.net/518e18713c865fe67a5f23fc64260806d72b38f5/61d75/images/docs/post-ccm-arch.png?raw=true)      
 
 CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的功能元件:
 
@@ -74,8 +77,8 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 ### 創建克制化CCM
 
-1. Create a go package that satisfies **the cloud provider interface**.   
-2. Create a copy of the Cloud Controller Manager **main.go** and **import your package**, making sure there is an init block available.   
+1. Create a go package that satisfies **the cloud provider interface**   
+2. Create a copy of the Cloud Controller Manager **main.go** and **import your package**, making sure there is an init block available      
 ```golang
 import (
  "fmt"
@@ -102,9 +105,7 @@ func main() {
  os.Exit(1)
  }
 }
-```
-
-
+```   
 ### UseCase : Cloud Provider OpenStack
 
 ### 參考資料
