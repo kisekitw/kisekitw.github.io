@@ -57,6 +57,24 @@ type Interface interface {
 	HasClusterID() bool
 }
 ```   
-只有***ProviderName()***為必要實作，其他皆為Option。
+只有**ProviderName()**為必要實作，其他皆為Option。
 
-### 
+###  Cloud Controller Manager 
+The Cloud Controller Manager (CCM) replaces the Kube Controller Manager (KCM), and is daemon that embeds the following cloud-specific control loops:
+* Node Controller
+* Route Controller
+* Service Controller
+
+
+
+
+### 參考資料
+
+* Building a Controller Manager for Your Cloud Platform 
+https://www.youtube.com/watch?v=kO7qJKPgxS0
+* Cloud Provider OpenStack
+https://github.com/kubernetes/cloud-provider-openstack/
+* OCI Cloud Controller Manager (CCM)
+https://github.com/oracle/oci-cloud-controller-manager
+
+
