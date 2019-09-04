@@ -168,16 +168,15 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/cmd/openstack-cloud-controller-manager/main.go
     ```
 3. 製作Docker Image
-    ```Dockerfile
+    ```Dockerfile   
     FROM alpine:3.7
     RUN apk add --no-cache ca-certificates
     ADD openstack-cloud-controller-manager /bin/
     CMD ["/bin/openstack-cloud-controller-manager"]
     ```   
-
-    ```
+    ```   
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/cluster/images/controller-manager/Dockerfile
-    ```
+    ```   
 4. 以DaemonSet掛載置Master Node   
     ```yaml
     apiVersion: apps/v1
