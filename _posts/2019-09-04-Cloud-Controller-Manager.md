@@ -75,7 +75,7 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 在K8S v1.9中實際運行的為上面前三個，Volume的部分由於抽象化各供應商Volume邏輯過於複雜，目前決定不將其加入CCM。
 
-### 創建克制化CCM
+### 創建客制化CCM
 
 1. Create a go package that satisfies **the cloud provider interface**   
 2. Create a copy of the Cloud Controller Manager **main.go** and **import your package**, making sure there is an init block available      
@@ -106,17 +106,64 @@ func main() {
  }
 }
 ```   
+
 ### UseCase : Cloud Provider OpenStack
+1. 實作Cloud Provider Interface  
+```golang
+...   
+
+// Clusters is a no-op   
+func (os *OpenStack) Clusters() (cloudprovider.Clusters, bool) {
+	return nil, false
+}   
+
+// ProviderName returns the cloud provider ID.
+func (os *OpenStack) ProviderName() string {
+	return ProviderName
+}   
+
+// HasClusterID returns true if the cluster has a clusterID
+func (os *OpenStack) HasClusterID() bool {
+	return true
+}
+
+// LoadBalancer initializes a LbaasV2 object
+func (os *OpenStack) LoadBalancer() (cloudprovider.LoadBalancer, bool) {
+
+    ...
+	return &LbaasV2{LoadBalancer{network, compute, lb, os.lbOpts}}, true
+}   
+
+// Zones indicates that we support zones
+func (os *OpenStack) Zones() (cloudprovider.Zones, bool) {
+
+	klog.V(1).Info("Claiming to support Zones")
+
+	return os, true
+
+}
+```
+```
+https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack.go
+```
+2. 
 
 ### 參考資料
 
 * Concepts Underlying the Cloud Controller Manager   
-https://kubernetes.io/docs/concepts/architecture/cloud-controller/
-* Building a Controller Manager for Your Cloud Platform   
-https://www.youtube.com/watch?v=kO7qJKPgxS0
+https://kubernetes.io/docs/concepts/architecture/cloud-controller/  
+
 * Cloud Provider OpenStack   
-https://github.com/kubernetes/cloud-provider-openstack/
+https://github.com/kubernetes/cloud-provider-openstack/   
+
+* Building a Controller Manager for Your Cloud Platform   
+https://www.youtube.com/watch?v=kO7qJKPgxS0  
+
+
+
 * OCI Cloud Controller Manager (CCM)   
-https://github.com/oracle/oci-cloud-controller-manager
+https://github.com/oracle/oci-cloud-controller-manager  
+
+
 
 
