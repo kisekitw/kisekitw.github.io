@@ -76,13 +76,13 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 ### 參考資料
 
-* Concepts Underlying the Cloud Controller Manager
+* Concepts Underlying the Cloud Controller Manager   
 https://kubernetes.io/docs/concepts/architecture/cloud-controller/
-* Building a Controller Manager for Your Cloud Platform 
+* Building a Controller Manager for Your Cloud Platform   
 https://www.youtube.com/watch?v=kO7qJKPgxS0
-* Cloud Provider OpenStack
+* Cloud Provider OpenStack   
 https://github.com/kubernetes/cloud-provider-openstack/
-* OCI Cloud Controller Manager (CCM)
+* OCI Cloud Controller Manager (CCM)   
 https://github.com/oracle/oci-cloud-controller-manager
 
 
