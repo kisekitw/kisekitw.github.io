@@ -79,73 +79,75 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 1. Create a go package that satisfies **the cloud provider interface**   
 2. Create a copy of the Cloud Controller Manager **main.go** and **import your package**, making sure there is an init block available      
-```golang
-import (
- "fmt"
- "math/rand"
- "os"
- "time"
- "k8s.io/component-base/logs"
- "k8s.io/kubernetes/cmd/cloud-controller-manager/app"
- "<my_cloud_provider>"
- _ "k8s.io/kubernetes/pkg/util/prometheusclientgo" // load all the prometheus client-go plugins
- _ "k8s.io/kubernetes/pkg/version/prometheus" // for version metric registration
-)
-func main() {
- rand.Seed(time.Now().UnixNano())
- command := app.NewCloudControllerManagerCommand()
- // TODO: once we switch everything over to Cobra commands, we can go back to calling
- // utilflag.InitFlags() (by removing its pflag.Parse() call). For now, we have to set the
- // normalize func and add the go flag set by hand.
- // utilflag.InitFlags()
- logs.InitLogs()
- defer logs.FlushLogs()
- if err := command.Execute(); err != nil {
- fmt.Fprintf(os.Stderr, "error: %v\n", err)
- os.Exit(1)
- }
-}
-```   
+    ```golang
+    import (
+    "fmt"
+    "math/rand"
+    "os"
+    "time"
+    "k8s.io/component-base/logs"
+    "k8s.io/kubernetes/cmd/cloud-controller-manager/app"
+    "<my_cloud_provider>"
+    _ "k8s.io/kubernetes/pkg/util/prometheusclientgo" // load all the prometheus client-go plugins
+    _ "k8s.io/kubernetes/pkg/version/prometheus" // for version metric registration
+    )
+    func main() {
+    rand.Seed(time.Now().UnixNano())
+    command := app.NewCloudControllerManagerCommand()
+    // TODO: once we switch everything over to Cobra commands, we can go back to calling
+    // utilflag.InitFlags() (by removing its pflag.Parse() call). For now, we have to set the
+    // normalize func and add the go flag set by hand.
+    // utilflag.InitFlags()
+    logs.InitLogs()
+    defer logs.FlushLogs()
+    if err := command.Execute(); err != nil {
+    fmt.Fprintf(os.Stderr, "error: %v\n", err)
+    os.Exit(1)
+    }
+    }
+    ```   
 
 ### UseCase : Cloud Provider OpenStack
 1. 實作Cloud Provider Interface  
-```golang
-...   
+    ```golang
 
-// Clusters is a no-op   
-func (os *OpenStack) Clusters() (cloudprovider.Clusters, bool) {
-	return nil, false
-}   
+    ...   
 
-// ProviderName returns the cloud provider ID.
-func (os *OpenStack) ProviderName() string {
-	return ProviderName
-}   
+    // Clusters is a no-op   
+    func (os *OpenStack) Clusters() (cloudprovider.Clusters, bool) {
+        return nil, false
+    }   
 
-// HasClusterID returns true if the cluster has a clusterID
-func (os *OpenStack) HasClusterID() bool {
-	return true
-}
+    // ProviderName returns the cloud provider ID.
+    func (os *OpenStack) ProviderName() string {
+        return ProviderName
+    }   
 
-// LoadBalancer initializes a LbaasV2 object
-func (os *OpenStack) LoadBalancer() (cloudprovider.LoadBalancer, bool) {
+    // HasClusterID returns true if the cluster has a clusterID
+    func (os *OpenStack) HasClusterID() bool {
+        return true
+    }
 
-    ...
-	return &LbaasV2{LoadBalancer{network, compute, lb, os.lbOpts}}, true
-}   
+    // LoadBalancer initializes a LbaasV2 object
+    func (os *OpenStack) LoadBalancer() (cloudprovider.LoadBalancer, bool) {
 
-// Zones indicates that we support zones
-func (os *OpenStack) Zones() (cloudprovider.Zones, bool) {
+        ...
+        return &LbaasV2{LoadBalancer{network, compute, lb, os.lbOpts}}, true
+    }   
 
-	klog.V(1).Info("Claiming to support Zones")
+    // Zones indicates that we support zones
+    func (os *OpenStack) Zones() (cloudprovider.Zones, bool) {
 
-	return os, true
+        klog.V(1).Info("Claiming to support Zones")
 
-}
-```
-```
-https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack.go
-```
+        return os, true
+
+    }
+    ```  
+
+    ```
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack.go
+    ```
 2. 
 
 ### 參考資料
