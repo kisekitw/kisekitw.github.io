@@ -72,7 +72,40 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 在K8S v1.9中實際運行的為上面前三個，Volume的部分由於抽象化各供應商Volume邏輯過於複雜，目前決定不將其加入CCM。
 
+### 創建克制化CCM
 
+1. Create a go package that satisfies **the cloud provider interface**.   
+2. Create a copy of the Cloud Controller Manager **main.go** and **import your package**, making sure there is an init block available.   
+```golang
+import (
+ "fmt"
+ "math/rand"
+ "os"
+ "time"
+ "k8s.io/component-base/logs"
+ "k8s.io/kubernetes/cmd/cloud-controller-manager/app"
+ "<my_cloud_provider>"
+ _ "k8s.io/kubernetes/pkg/util/prometheusclientgo" // load all the prometheus client-go plugins
+ _ "k8s.io/kubernetes/pkg/version/prometheus" // for version metric registration
+)
+func main() {
+ rand.Seed(time.Now().UnixNano())
+ command := app.NewCloudControllerManagerCommand()
+ // TODO: once we switch everything over to Cobra commands, we can go back to calling
+ // utilflag.InitFlags() (by removing its pflag.Parse() call). For now, we have to set the
+ // normalize func and add the go flag set by hand.
+ // utilflag.InitFlags()
+ logs.InitLogs()
+ defer logs.FlushLogs()
+ if err := command.Execute(); err != nil {
+ fmt.Fprintf(os.Stderr, "error: %v\n", err)
+ os.Exit(1)
+ }
+}
+```
+
+
+### UseCase : Cloud Provider OpenStack
 
 ### 參考資料
 
