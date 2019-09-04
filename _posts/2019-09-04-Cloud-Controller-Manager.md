@@ -221,9 +221,14 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/manifests/controller-manager/openstack-cloud-controller-manager-ds.yaml
     ```   
 
+    ![HPA Initial Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080904/OpenstackCCMImage.png?raw=true)  
+
     ```
     https://hub.docker.com/r/k8scloudprovider/openstack-cloud-controller-manager/tags
     ```
+
+5. 執行CCM的相關元件組態設定
+
 
 ### 參考資料
 
@@ -235,8 +240,6 @@ https://github.com/kubernetes/cloud-provider-openstack/
 
 * Building a Controller Manager for Your Cloud Platform   
 https://www.youtube.com/watch?v=kO7qJKPgxS0  
-
-
 
 * OCI Cloud Controller Manager (CCM)   
 https://github.com/oracle/oci-cloud-controller-manager  
