@@ -147,8 +147,25 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
     ```
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack.go
-    ```
-2. 
+    ```   
+
+2. 在main.go中引用該套件   
+    ```golang
+    import (
+    ...   
+
+    "k8s.io/cloud-provider-openstack/pkg/cloudprovider/providers/openstack"
+    
+    ...
+
+    _ "k8s.io/kubernetes/pkg/version/prometheus" // for version metric registration
+    
+    ...
+    )
+    ```   
+3. 製作Docker Image
+
+4. 以DaemonSet掛載置Master Node
 
 ### 參考資料
 
