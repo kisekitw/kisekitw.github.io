@@ -229,8 +229,16 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
 
 5. 執行CCM的相關元件組態設定
 
+* **kube-apiserver** and **kube-controller-manager** **MUST NOT** specify the **--cloud-provider** flag.    
+This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.   
+
+* **kubelet** must run with **--cloud-provider=external**.    
+This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
+
 
 ### 參考資料
+* Kubernetes Cloud Controller Manager
+https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#examples   
 
 * Concepts Underlying the Cloud Controller Manager   
 https://kubernetes.io/docs/concepts/architecture/cloud-controller/  
