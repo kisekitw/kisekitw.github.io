@@ -172,13 +172,14 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     FROM alpine:3.7
     RUN apk add --no-cache ca-certificates
     ADD openstack-cloud-controller-manager /bin/
-    CMD ["/bin/openstack-cloud-controller-manager"]
+    CMD ["/bin/openstack-cloud-controller-manager"]   
     ```     
-    
+         
     ```   
-    https://github.com/kubernetes/cloud-provider-openstack/blob/master/cluster/images/controller-manager/Dockerfile
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/cluster/images/controller-manager/Dockerfile   
     ```   
-4. 以DaemonSet掛載置Master Node   
+
+4. 以DaemonSet掛載至Master Node   
     ```yaml
     apiVersion: apps/v1
     kind: DaemonSet
