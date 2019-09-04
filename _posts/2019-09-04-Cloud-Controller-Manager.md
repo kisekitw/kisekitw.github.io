@@ -220,8 +220,11 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/manifests/controller-manager/openstack-cloud-controller-manager-ds.yaml
     ```   
 
-    ![K8S OpenStack CCM Image](https://d33wubrfki0l68.cloudfront.net/518e18713c865fe67a5f23fc64260806d72b38f5/61d75/images/docs/post-ccm-arch.png?raw=true) 
+    ![K8S OpenStack CCM Image](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080904/OpenstackCCMImage.png?raw=true)    
 
+    ```
+    https://hub.docker.com/r/k8scloudprovider/openstack-cloud-controller-manager/tags
+    ```
 
 ### 參考資料
 
