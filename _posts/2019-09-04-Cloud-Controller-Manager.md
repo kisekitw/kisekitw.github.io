@@ -163,9 +163,65 @@ CCM從Kubernetes controller manager(KCM)中分離出與雲端供應商相關的�
     ...
     )
     ```   
-3. 製作Docker Image
 
-4. 以DaemonSet掛載置Master Node
+    ```
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/cmd/openstack-cloud-controller-manager/main.go
+    ```
+3. 製作Docker Image
+    ```Dockerfile
+    FROM alpine:3.7
+    RUN apk add --no-cache ca-certificates
+    ADD openstack-cloud-controller-manager /bin/
+    CMD ["/bin/openstack-cloud-controller-manager"]
+    ```   
+
+    ```
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/cluster/images/controller-manager/Dockerfile
+    ```
+4. 以DaemonSet掛載置Master Node   
+    ```yaml
+    apiVersion: apps/v1
+    kind: DaemonSet
+    metadata:
+    name: openstack-cloud-controller-manager
+    namespace: kube-system
+    labels:
+        k8s-app: openstack-cloud-controller-manager
+    spec:
+    selector:
+        matchLabels:
+        k8s-app: openstack-cloud-controller-manager
+    updateStrategy:
+        type: RollingUpdate
+    template:
+        metadata:
+        labels:
+            k8s-app: openstack-cloud-controller-manager
+        spec:
+        nodeSelector:
+            node-role.kubernetes.io/master: ""
+        securityContext:
+            runAsUser: 1001
+        tolerations:
+        - key: node.cloudprovider.kubernetes.io/uninitialized
+            value: "true"
+            effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+            effect: NoSchedule
+        serviceAccountName: cloud-controller-manager
+        containers:
+            - name: openstack-cloud-controller-manager
+            image: docker.io/k8scloudprovider/openstack-cloud-controller-manager:latest
+        
+        ...   
+    ```   
+
+    ```
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/manifests/controller-manager/openstack-cloud-controller-manager-ds.yaml
+    ```   
+
+    ![K8S OpenStack CCM Image](https://d33wubrfki0l68.cloudfront.net/518e18713c865fe67a5f23fc64260806d72b38f5/61d75/images/docs/post-ccm-arch.png?raw=true) 
+
 
 ### 參考資料
 
