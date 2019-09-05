@@ -10,7 +10,7 @@ tag:
 comments: false
 ---  
 ### In Tree ?
-K8S v1.4版的原始碼內置很多的Cloud Provider實作，當下載K8S後預設可透過配置直接使用這些Cloud Provider:
+K8S v1.14版的原始碼內置很多的Cloud Provider實作，當下載K8S後預設可透過配置直接使用這些Cloud Provider:
 
 1. OpenStack
 2. AWS
