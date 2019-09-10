@@ -252,6 +252,14 @@ https://www.youtube.com/watch?v=kO7qJKPgxS0
 * OCI Cloud Controller Manager (CCM)   
 https://github.com/oracle/oci-cloud-controller-manager  
 
+* Digitalocean Cloud Controller Manager  
 
+https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/getting-started.md
 
+WARNING: setting --cloud-provider=external will taint all nodes in a cluster with node.cloudprovider.kubernetes.io/uninitialized, it is the responsibility of cloud controller managers to untaint those nodes once it has finished initializing them. This means that most pods will be left unscheduable until the cloud controller manager is running.
+
+In the future, --cloud-provider=external will be the default. 
+
+* Refactor Cloud Provider out of Kubernetes Core
+https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cloud-provider/cloud-provider-refactoring.md
 
