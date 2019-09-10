@@ -95,6 +95,57 @@ http://gophercloud.io/
 
 ### Gophercloud SDK實作   
 
+1. 身分驗證
+
+    ``` golang
+    // TODO: 準備驗證相關資訊(使用rd-alston@test.com)
+	opts := gophercloud.AuthOptions{
+		IdentityEndpoint: "http://rg1-vip.testbed-pike.local:5000/v3/",
+		// Username:         "rd-alston@test.com", 使用Username驗證會失敗
+		UserID:   "9f85b1bc11954d5d85e94fbbd600b85a",
+		Password: "8323f15343239abb72885940220a4f3e",
+		TenantID: "8c7cb26f88774f15bc110d4e12c725ad",
+    }
+    
+    provider, err := openstack.AuthenticatedClient(opts)
+    ```
+2. 創建Compute服務Client
+    為了使用Compute API，可將取得的provider注入該服務中取得client物件。   
+
+    ```golang   
+    client, err :=
+		openstack.NewComputeV2(provider, gophercloud.EndpointOpts{
+			Region: "RegionOne",
+		})
+    ```   
+    該client就可用於任何想要的Compute API操作。
+
+3. 取得目前運行的實體資訊   
+
+    ```golang
+    opts2 := servers.ListOpts{}
+	pager := servers.List(client, opts2)
+
+	pager.EachPage(func(page pagination.Page) (bool, error) {
+		serverList, err := servers.ExtractServers(page)
+
+		if err != nil {
+			return false, err
+		}
+
+		for _, s := range serverList {
+
+			fmt.Println(s.ID, s.Name, s.Status)
+			// servers.Delete(client, s.ID);
+		}
+		return true, nil
+	})
+    ```   
+
+    ```cmd
+    $ go run main.go
+    52456aa3-c675-478b-981e-3902aa7f617c testvm ACTIVE
+    ```
 
 ### Customer Controller的可能性   
 
