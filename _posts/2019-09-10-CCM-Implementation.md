@@ -34,7 +34,7 @@ Cloud Controller Manager(CCM)包含前三項，最後的Volume Controller因其�
 ```
 https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/cloud-provider   
 ```
-關於介面的制定都由**Sig-cloudprovider**維護。
+關於介面的制定都由**Sig-Cloudprovider**維護。
 
 ### 以節點控制器實作為例子   
 OpenStack提供的CCM實作都放在**pkg/cloudprovider/providers/openstack**下:   
@@ -72,18 +72,30 @@ cloudprovider "k8s.io/cloud-provider"
 * InstanceShutdownByProviderID(ctx context.Context, providerID string)     
     回傳true表示該實體被cloudprovider關機   
 
-```   
-https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack_client.go
-```
+    ```   
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack_client.go
+    ```
 
 從上面各項實作可知到兩件事情:   
 1. 這些方法都為了提供K8S獲取相關OpenStack實體資訊，並無從K8S請求OpenStack創建實體的方法。  
 2. 與OpenStack元件API的互動都透過**Gophercloud SDK**   
 
-### Gophercloud SDK
+### Gophercloud SDK   
 
-### Golang的介面實作
+Gophercloud SDK是一套用Golang開發的工具，可讓應用程式與OpenStack Cloud溝通，支援OpenStack各種服務，例如:  
+* Compute   
+* Object Storage   
+* Indentity   
+* Networking   
+* Block Storage   
 
-### Customer Controller的可能性
+```
+http://gophercloud.io/
+```   
+
+### Gophercloud SDK實作   
+
+
+### Customer Controller的可能性   
 
 
