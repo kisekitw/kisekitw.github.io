@@ -145,8 +145,6 @@ http://gophercloud.io/
     ```cmd
     $ go run main.go
     52456aa3-c675-478b-981e-3902aa7f617c testvm ACTIVE
-    ```
-
-### Customer Controller的可能性   
+    ```    
 
 
