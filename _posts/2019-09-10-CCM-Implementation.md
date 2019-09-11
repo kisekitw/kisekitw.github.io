@@ -73,7 +73,7 @@ cloudprovider "k8s.io/cloud-provider"
     回傳true表示該實體被cloudprovider關機   
 
     ```   
-    https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack_client.go
+    https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack_instances.go
     ```
 
 從上面各項實作可知到兩件事情:   
