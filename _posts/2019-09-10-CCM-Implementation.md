@@ -53,24 +53,24 @@ cloudprovider "k8s.io/cloud-provider"
 
 在**openstack_instances.go**中除了實作**Interface**介面外，還實作**Instances**介面，有下面方法要實作:
 
-* NodeAddresses(ctx context.Context, name types.NodeName)      
+* NodeAddresses(ctx context.Context, name types.NodeName) ([]v1.NodeAddress, error)      
     回傳特定實體位址   
 * NodeAddressesByProviderID(ctx context.Context, providerID string)      
     依節點的Provider ID回傳特定實體位址   
-* InstanceID(ctx context.Context, nodeName types.NodeName)    
+* NodeAddressesByProviderID(ctx context.Context, providerID string) ([]v1.NodeAddress, error)    
     依特定節點名稱回傳節點的Cloud Provider ID   
-* InstanceType(ctx context.Context, name types.NodeName)   
+* InstanceType(ctx context.Context, name types.NodeName) (string, error)   
     回傳特定實體型態   
-* InstanceTypeByProviderID(ctx context.Context, providerID string)   
+* InstanceTypeByProviderID(ctx context.Context, providerID string) (string, error)   
     依Provider ID回傳特定實體型態
-* AddSSHKeyToAllInstances()   
-    為所有實體新增SSH Key
-* CurrentNodeName(ctx context.Context, hostname string)      
+* AddSSHKeyToAllInstances(ctx context.Context, user string, keyData []byte) error   
+    Not implemented for OpenStack
+* CurrentNodeName(ctx context.Context, hostname string) (types.NodeName, error)      
     回傳目前正在運行的節點名稱
-* InstanceExistsByProviderID(ctx context.Context, providerID string)   
+* InstanceExistsByProviderID(ctx context.Context, providerID string) (bool, error)   
     依所提供的Provider ID若仍存在實體則回傳true，反之則回傳false並直接由Cloud Controller Manager刪除。對於存在但狀態為停止/休眠的實例，此方法仍應回傳true   
-* InstanceShutdownByProviderID(ctx context.Context, providerID string)     
-    回傳true表示該實體被cloudprovider關機   
+* InstanceShutdownByProviderID(ctx context.Context, providerID string) (bool, error)     
+    回傳true表示該實體處於安全狀態可detach資料卷   
 
     ```   
     https://github.com/kubernetes/cloud-provider-openstack/blob/master/pkg/cloudprovider/providers/openstack/openstack_instances.go
