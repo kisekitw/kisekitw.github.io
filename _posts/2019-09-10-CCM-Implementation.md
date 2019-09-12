@@ -155,9 +155,13 @@ http://gophercloud.io/docs/compute/
     ```   
 
     ```cmd
-    $ go run main.go
-    52456aa3-c675-478b-981e-3902aa7f617c testvm ACTIVE
+    $ go run main.go   
+
+        d65c1c45-1e02-46be-88a7-d22aaacf99c4 testvm3 ACTIVE
+        52456aa3-c675-478b-981e-3902aa7f617c testvm ACTIVE
     ```   
+
+    ![Openstack Instance Status](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080910/OpenstackInstanceStatus.png?raw=true)  
 
     ### Cluster Management API (aka Cluster API)
     * 目的
