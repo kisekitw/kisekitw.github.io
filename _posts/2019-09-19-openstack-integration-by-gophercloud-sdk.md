@@ -129,11 +129,20 @@ func main() {
 
 結果如下:   
 
-![Openstack auth file download](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080919/openstack_vm_created.png?raw=true)   
+![Openstack auth file download](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080919/openstack_vm_created.png?raw=true)      
 
 
 ### 補充
-1. Server Create Options Struct   
+1. 透過Provider派生各種資源的Clinet
+    很重要，不同的Client叫用的Endpoints不同，例如Compute - Nova的Port為8774，Network - Neutron的Port為9696。   
+    因此若用Compute的Client去請求Network List就會一直找不到資源。   
+
+    ![Network Query](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080919/network_query.png?raw=true)    
+
+    ![Network Query Error](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080919/network_query_error.png?raw=true) 
+
+
+2. Server Create Options Struct   
     ```golang
     type CreateOpts struct {
         // Name [required] is the name to assign to the newly launched server.
