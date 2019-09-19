@@ -18,21 +18,9 @@ comments: false
 
      該檔案內容如下:   
      ``` shell
-        #!/usr/bin/env bash
-        # To use an OpenStack cloud you need to authenticate against the Identity
-        # service named keystone, which returns a **Token** and **Service Catalog**.
-        # The catalog contains the endpoints for all services the user/tenant has
-        # access to - such as Compute, Image Service, Identity, Object Storage, Block
-        # Storage, and Networking (code-named nova, glance, keystone, swift,
-        # cinder, and neutron).
-        #
-        # *NOTE*: Using the 3 *Identity API* does not necessarily mean any other
-        # OpenStack API is version 3. For example, your cloud provider may implement
-        # Image API v1.1, Block Storage API v2, and Compute API v2.0. OS_AUTH_URL is
-        # only for the Identity API served through keystone.
+        
         export OS_AUTH_URL=http://rg1-vip.testbed-pike.local:5000/v3/
-        # With the addition of Keystone we have standardized on the term **project**
-        # as the entity that owns the resources.
+        
         export OS_PROJECT_ID=8c7cb26f88774f15bc110d4e12c725ad
         export OS_PROJECT_NAME="rd-alston@test.com"
         export OS_USER_DOMAIN_NAME="Default"
@@ -89,13 +77,120 @@ provider, err := openstack.AuthenticatedClient(opts)
 ```   
 ProviderClient物件中有存取Openstack API相關的驗證、存取資訊，例如**token ID**、**Base URL**。
 
-接著就可以利用ProviderClient派生下列各種資源的Client進行操作:   
+接著就可以利用ProviderClient派生下列**各種資源的Client**進行操作:   
 * Compute   
 * Object Storage   
 * Networking   
 * Block Storage   
 * Identity   
 
-### 
+### 使用案例 - 創建VM執行個體   
+```golang
+import (
+    ...
+	"github.com/rackspace/gophercloud/openstack/compute/v2/servers"
+)
+func main() {
+    // TODO: Authentication
+    ...
+
+    // TODO: Create Compute Client
+    computeClient, err :=
+		openstack.NewComputeV2(provider, gophercloud.EndpointOpts{
+			Region: "RegionOne",
+        })
+        
+    // TODO: Get Network List
+    networkClient, err := openstack.NewNetworkV2(provider, gophercloud.EndpointOpts{
+		Name:   "neutron",
+		Region: "RegionOne",
+    })
+    
+    ... 
+
+	for _, network := range allNetworks {
+		fmt.Printf("%+v", network)
+    }
+    
+    // TODO: Create Server(VM)
+    createOpts := servers.CreateOpts{
+		Name:             "Build-From-Go", // Require
+		FlavorName:       "m1.medium", // Option?
+		ImageName:        "CloudPlatform-Ubuntu16.04", // Option?
+		AvailabilityZone: "Availability-Zone-2", // Option?
+		Networks: []servers.Network{
+			servers.Network{UUID: "71821ba8-dbe1-474f-8957-503ad7f25128"}, // Option?
+		},
+	}
+	server, err := servers.Create(computeClient, createOpts).Extract()
+
+}
+```
+
+結果如下:   
+
+![Openstack auth file download](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080919/openstack_vm_created.png?raw=true)   
+
+
+### 補充
+1. Server Create Options Struct   
+    ```golang
+    type CreateOpts struct {
+        // Name [required] is the name to assign to the newly launched server.
+        Name string
+
+        // ImageRef [optional; required if ImageName is not provided] is the ID or full
+        // URL to the image that contains the server's OS and initial state.
+        // Also optional if using the boot-from-volume extension.
+        ImageRef string
+
+        // ImageName [optional; required if ImageRef is not provided] is the name of the
+        // image that contains the server's OS and initial state.
+        // Also optional if using the boot-from-volume extension.
+        ImageName string
+
+        // FlavorRef [optional; required if FlavorName is not provided] is the ID or
+        // full URL to the flavor that describes the server's specs.
+        FlavorRef string
+
+        // FlavorName [optional; required if FlavorRef is not provided] is the name of
+        // the flavor that describes the server's specs.
+        FlavorName string
+
+        // SecurityGroups [optional] lists the names of the security groups to which this server should belong.
+        SecurityGroups []string
+
+        // UserData [optional] contains configuration information or scripts to use upon launch.
+        // Create will base64-encode it for you.
+        UserData []byte
+
+        // AvailabilityZone [optional] in which to launch the server.
+        AvailabilityZone string
+
+        // Networks [optional] dictates how this server will be attached to available networks.
+        // By default, the server will be attached to all isolated networks for the tenant.
+        Networks []Network
+
+        // Metadata [optional] contains key-value pairs (up to 255 bytes each) to attach to the server.
+        Metadata map[string]string
+
+        // Personality [optional] includes files to inject into the server at launch.
+        // Create will base64-encode file contents for you.
+        Personality Personality
+
+        // ConfigDrive [optional] enables metadata injection through a configuration drive.
+        ConfigDrive bool
+
+        // AdminPass [optional] sets the root user password. If not set, a randomly-generated
+        // password will be created and returned in the response.
+        AdminPass string
+
+        // AccessIPv4 [optional] specifies an IPv4 address for the instance.
+        AccessIPv4 string
+
+        // AccessIPv6 [optional] specifies an IPv6 address for the instance.
+        AccessIPv6 string
+    }
+    ```
 
 
