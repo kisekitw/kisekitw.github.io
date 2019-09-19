@@ -22,7 +22,7 @@ comments: false
         export OS_AUTH_URL=http://rg1-vip.testbed-pike.local:5000/v3/
         
         export OS_PROJECT_ID=8c7cb26f88774f15bc110d4e12c725ad
-        export OS_PROJECT_NAME="rd-alston@test.com"
+        export OS_PROJECT_NAME="{OS_PROJECT_NAME}"
         export OS_USER_DOMAIN_NAME="Default"
         if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
         export OS_PROJECT_DOMAIN_ID="default"
@@ -32,14 +32,14 @@ comments: false
         unset OS_TENANT_NAME
         # In addition to the owning entity (tenant), OpenStack stores the entity
         # performing the action as the **user**.
-        export OS_USERNAME="rd-alston@test.com"
+        export OS_USERNAME="{OS_USERNAME}"
         # With Keystone you pass the keystone password.
         echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: "
-        OS_PASSWORD_INPUT="8323f15343239abb72885940220a4f3e"
+        OS_PASSWORD_INPUT="{OS_PASSWORD_INPUT}"
         export OS_PASSWORD=$OS_PASSWORD_INPUT
         # If your configuration has multiple regions, we set that information here.
         # OS_REGION_NAME is optional and only valid in certain environments.
-        export OS_REGION_NAME="RegionOne"
+        export OS_REGION_NAME="{OS_REGION_NAME}"
         # Don't leave a blank variable, unset it if it was empty
         if [ -z "$OS_REGION_NAME" ]; then unset OS_REGION_NAME; fi
         export OS_INTERFACE=public
@@ -61,11 +61,10 @@ comments: false
     第二個方法就是自己建立**gophercloud.AuthOptions**物件，基本上就是登入Dashboard時所需要的資訊:   
     ```golang
     opts := gophercloud.AuthOptions{
-		IdentityEndpoint: "http://rg1-vip.testbed-pike.local:5000/v3/",
-		// Username:         "rd-alston@test.com", <-- 會驗證不過
-		UserID:   "9f85b1bc11954d5d85e94fbbd600b85a", // <-- 驗證通過
-		Password: "8323f15343239abb72885940220a4f3e",
-		TenantID: "8c7cb26f88774f15bc110d4e12c725ad",
+		IdentityEndpoint: "http://xxxxxxx:5000/v3/",
+		UserID:   "{UserID}", // <-- 驗證通過
+		Password: "{Password}",
+		TenantID: "{TenantID}",
 	}
     ```   
 
