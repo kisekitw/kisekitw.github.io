@@ -61,9 +61,41 @@ comments: false
      ```
      $ source auth.sh
      ```   
-     如此在使用sdk時就可用下面語法進行驗證:   
+     如此在使用sdk時就可用下面語法進行驗證並生成**gophercloud.AuthOptions**物件:   
      ```golang
      import "github.com/rackspace/gophercloud/openstack"
      opts, err := openstack.AuthOptionsFromEnv()
-     ```
-2. 自行建構
+     ```   
+      
+      PS: 測試沒成功，一直取到空值   
+
+2. 自行建構   
+    第二個方法就是自己建立**gophercloud.AuthOptions**物件，基本上就是登入Dashboard時所需要的資訊:   
+    ```golang
+    opts := gophercloud.AuthOptions{
+		IdentityEndpoint: "http://rg1-vip.testbed-pike.local:5000/v3/",
+		// Username:         "rd-alston@test.com", <-- 會驗證不過
+		UserID:   "9f85b1bc11954d5d85e94fbbd600b85a", // <-- 驗證通過
+		Password: "8323f15343239abb72885940220a4f3e",
+		TenantID: "8c7cb26f88774f15bc110d4e12c725ad",
+	}
+    ```   
+
+取得opts物件後，就要傳入**AuthenticatedClient**方法並取得**ProviderClient**結構:   
+```golang
+import "github.com/rackspace/gophercloud/openstack"
+
+provider, err := openstack.AuthenticatedClient(opts)
+```   
+ProviderClient物件中有存取Openstack API相關的驗證、存取資訊，例如**token ID**、**Base URL**。
+
+接著就可以利用ProviderClient派生下列各種資源的Client進行操作:   
+* Compute   
+* Object Storage   
+* Networking   
+* Block Storage   
+* Identity   
+
+### 
+
+
