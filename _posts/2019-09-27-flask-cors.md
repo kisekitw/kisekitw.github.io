@@ -39,7 +39,7 @@ comments: false
 
  再次透過axios叫用該方法:   
 
-  ![Backend CORS](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/Success.jpg?raw=true)  
+  ![Success](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/Success.jpg?raw=true)  
 
 
 
