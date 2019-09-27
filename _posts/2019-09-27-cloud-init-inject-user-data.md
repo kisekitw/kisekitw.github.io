@@ -29,7 +29,6 @@ comments: false
 ### 參考資料
 
 ![Get user metadata](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/getmetadata.png?raw=true)    
-
 ```
 https://www.itread01.com/articles/1490774251.html
 ```   
@@ -37,6 +36,16 @@ https://www.itread01.com/articles/1490774251.html
 https://zhangchenchen.github.io/2017/01/13/openstack-init-instance-password/
 ```
 
-### 未來我們的機制??
+### 目前狀況
+
+![Post Create VM](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/post-create-vm.png?raw=true)   
+
+![Post Create Result](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/openstack_create_result.png?raw=true)    
+
+![VM Login](https://github.com/kisekitw/kisekitw.github.io/blob/master/assets/img/1080927/VMLogin.png?raw=true)    
+
+
+
+
 
 
