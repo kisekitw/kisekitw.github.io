@@ -33,6 +33,9 @@ comments: false
 ```
 https://www.itread01.com/articles/1490774251.html
 ```   
+```
+https://zhangchenchen.github.io/2017/01/13/openstack-init-instance-password/
+```
 
 ### 未來我們的機制??
 
